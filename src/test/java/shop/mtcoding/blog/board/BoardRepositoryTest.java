@@ -17,6 +17,38 @@ public class BoardRepositoryTest {
     @Autowired //DI하는 코드
     private BoardRepository boardRepository;
 
+
+
+    @Test
+    public void delete_test(){
+        //given
+        int id = 1;
+        //when
+        boardRepository.delete(id);
+        //then
+        Board board = boardRepository.selectOne(id);
+        System.out.println(board);
+    }
+
+    @Test
+    public void update_test(){
+        //given
+        int id = 3;
+        String title = "제목3";
+        String content = "내용3";
+        String author = "강감찬";
+        //when
+        boardRepository.update(id, title, content, author);
+        //then
+        Board board = boardRepository.selectOne(id);
+        System.out.println(board);
+        Assertions.assertThat(board.getTitle()).isEqualTo("제목3");
+        Assertions.assertThat(board.getContent()).isEqualTo("내용3");
+        Assertions.assertThat(board.getAuthor()).isEqualTo("강감찬");
+
+    }
+
+
     @Test
     public void selectAll_test(){
         //given
